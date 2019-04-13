@@ -4,18 +4,17 @@ var timeoutHandle;
 var scoreCount= 0;
 var myQuestions = [
     {
-        question: "Who is the Keymaster in 'Ghostbusters'?",
+        question: "1. Who is the Keymaster in 'Ghostbusters'?",
         answers: {
             a: 'Zuul',
             b: 'The Gatekeeper',
             c: 'Stay Puft Marshmallow Man',
             d: 'The Ghostbusters',
         },
-
         correctAnswer: 'a',
     },
     {
-        question: "How many gigawatts of electricity did Doc Brown need to generate power to the Delorian in 'Back to the Future'?",
+        question: "2. How many gigawatts of electricity did Doc Brown need to generate power to the Delorian in 'Back to the Future'?",
         answers: {
             a: '87.3',
             b: '998',
@@ -25,7 +24,7 @@ var myQuestions = [
         correctAnswer: 'd',
     },
     {
-        question: "What 80s film was Alan Rickman's first feature film role?",
+        question: "3. What 80s film was Alan Rickman's first feature film role?",
         answers: {
             a: 'Die Hard',
             b: 'The January Man',
@@ -35,7 +34,7 @@ var myQuestions = [
         correctAnswer: 'a',
     },
     {
-        question: "Name that Movie! 'I am serious. and don't call me Shirley'",
+        question: "4. Name that Movie! 'I am serious. and don't call me Shirley'",
         answers: {
             a: 'Caddyshack',
             b: 'Ghostbusters',
@@ -45,7 +44,7 @@ var myQuestions = [
         correctAnswer: 'c',
     },
     {
-        question: "What type of dinosaur is Littlefoot in 'The Land Before Time'?",
+        question: "5. What type of dinosaur is Littlefoot in 'The Land Before Time'?",
         answers: {
             a: 'Triceratops',
             b: 'Apatosaurus',
@@ -55,7 +54,7 @@ var myQuestions = [
         correctAnswer: 'b',
     },
     {
-        question: "In 'Farris Beuller's Day Off', who plays the Burnout at the police station that Jeanie kisses?",
+        question: "6. In 'Farris Beuller's Day Off', who plays the Burnout at the police station that Jeanie kisses?",
         answers: {
             a: 'Charlie Sheen',
             b: 'John Cusack',
@@ -65,7 +64,7 @@ var myQuestions = [
         correctAnswer: 'a',
     },
     {
-        question: "Who directed the 1980 horror film 'The Shining'?",
+        question: "7. Who directed the 1980 horror film 'The Shining'?",
         answers: {
             a: 'Stanley Kubrick',
             b: 'Tobe Hooper',
@@ -75,7 +74,7 @@ var myQuestions = [
         correctAnswer: 'a',
     },
     {
-        question: "In which Indiana Jones film does Jones team up with his father Henry (played by Seann Connery)?",
+        question: "8. In which Indiana Jones film does Jones team up with his father Henry (played by Sean Connery)?",
         answers: {
             a: 'Temple of Doom',
             b: 'The Last Crusade',
@@ -84,7 +83,7 @@ var myQuestions = [
         correctAnswer: 'b',
     },
     {
-        question: "Who wrote the screenplay for 'The Goonies'?",
+        question: "9. Who wrote the screenplay for 'The Goonies'?",
         answers: {
             a: 'James Cameron',
             b: 'Stephen Speilburg',
@@ -94,7 +93,7 @@ var myQuestions = [
         correctAnswer: 'd',
     },
     {
-        question: "In 'Dirty Dancing', what was Baby's real name?",
+        question: "10. In 'Dirty Dancing', what was Baby's real name?",
         answers: {
             a: 'Penny',
             b: 'Elizabeth',
@@ -130,17 +129,18 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
                 // add an html radio button
                 answers.push(
                     '<label>'
-                        + '<input type= "radio" name= "question '+ i +' " value =" '+ letter + ' ">'
-                        + letter + ': '
+                        + '<input type="radio" name="question'+i+'" value="'+letter+'">'
+                        + letter + ': ' 
                         + questions[i].answers[letter]
+                        + '<br>'
                     + '</label>'
                 );
             }
 
             // add the question and its answers to the output
             output.push(
-                '<div class= "question" >' + questions[i].question + '</div>'
-                + '<div class= "answers" >' + answers.join('') + '</div>'
+                '<div class="question">' + questions[i].question + '</div>'
+                + '<div class="answers">' + answers.join('  ') + '</div>'
             );
         }
 
@@ -157,7 +157,8 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
         // keep track of user's answers
         var userAnswer = '';
         var numCorrect = 0;
-        
+   
+
         for(var i=0; i<questions.length; i++){
 
             // find selected answer
@@ -167,15 +168,14 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
             if(userAnswer===questions[i].correctAnswer){
                 // add to the number of correct answers
                 numCorrect++;
-                
-                
-                answerContainers[i].append(" Right!") ;
+            
+                answerContainers[i].append("Right!")
                 
             }
             // if answer is wrong or blank
             else{
                 
-                answerContainers[i].append(" Wrong!") ;
+                answerContainers[i].append("Wrong!") ;
             }
         }
 
@@ -189,31 +189,37 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
     // on submit, show results
     submitButton.onclick = function(){
         showResults(questions, quizContainer, resultsContainer);
+        window.clearInterval(countdown);
     }
-
+    
 
 // Countdown/ onclick start
 $("#startButton").on("click", function (){
-        function countdown(minutes, seconds) {
-            function tick() {
-                var counter = document.getElementById("timer");
-                    counter.innerHTML =
-                        minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
-                    seconds--;
-                    if (seconds >= 0) {
-                        timeoutHandle = setTimeout(tick, 1000);
-                    } 
-                    else if (minutes >= 1) {
-                        setTimeout(function () {
-                        countdown(minutes - 1, 59);
-                        }, 1000);
-                    }
-                
+    function countdown(minutes, seconds) {
+        function tick() {
+            var counter = document.getElementById("timer");
+                counter.innerHTML =
+                    minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+                seconds--;
+                if (seconds >= 0) {
+                    timeoutHandle = setTimeout(tick, 1000);
+                } 
+                else if (minutes >= 1) {
+                    setTimeout(function () {
+                    countdown(minutes - 1, 59);
+                    }, 1000);
                 }
-        tick();
-        }
+            
+            }
+    tick();
+    }
 
-        countdown(1, 30);   
+    countdown(1, 30);   
+   
+        setInterval(function (){showResults(questions, quizContainer, resultsContainer)}, 45000);
     }); 
 
 };
+        
+
+    

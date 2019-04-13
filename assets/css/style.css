@@ -8,7 +8,9 @@ body{
 	font-weight: 600;
 }
 .answers {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
+    top:-30px;
+    width: 50%;
 }
 #submit{
 	font-family: sans-serif;
@@ -33,5 +35,12 @@ body{
 	cursor: pointer;
 	margin-bottom: 20px;
 
+}
+
+#right{
+	color:green;
+}
+#wrong{
+	color: red
 }
 
