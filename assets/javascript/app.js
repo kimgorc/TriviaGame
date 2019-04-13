@@ -189,7 +189,7 @@ generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
     // on submit, show results
     submitButton.onclick = function(){
         showResults(questions, quizContainer, resultsContainer);
-        window.clearInterval(countdown);
+        clearInterval(timeoutHandle);
     }
     
 
@@ -220,6 +220,4 @@ $("#startButton").on("click", function (){
     }); 
 
 };
-        
-
     
